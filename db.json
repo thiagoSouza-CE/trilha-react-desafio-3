@@ -17,6 +17,11 @@
       "name": "Thiago Rodrigues",
       "email": "thiago@gmail.com",
       "senha": "123456"
+    },
+    {
+      "id": "bc07",
+      "email": "thiago,engh@gmail.com",
+      "senha": "Teste123"
     }
   ]
 }

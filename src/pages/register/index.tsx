@@ -10,21 +10,22 @@ import { api } from '../../services/api';
 
 import { Container, DivForm, DivInfo, Title, SubTitle, Wrapper, FooterForm, Row, HaveAccount, HaveAccountLink } from './style';
 import { useForm } from "react-hook-form";
+import { IFormData } from '../login/types';
 
 const Register = () => {
 
   const navigate = useNavigate()
 
-    const { control, handleSubmit, formState: { errors  } } = useForm({
+    const { control, handleSubmit, formState: { errors  } } = useForm<IFormData>({
         reValidateMode: 'onChange',
         mode: 'onChange',
     });
 
-    const onSubmit = async (formData) => {
+    const onSubmit = async (formData: IFormData) => {
         const payload = {
-          name: formData.userName,
+          name: formData.user,
           email: formData.email,
-          senha: formData.senha,
+          senha: formData.password,
         };
         try{
             const {data} = await api.post(`/users`, payload);
@@ -53,12 +54,12 @@ const Register = () => {
             <Title>Comece agora grátis</Title>
             <SubTitle>Crie sua conta e make the change._</SubTitle>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Input name = "username" placeholder="Nome Completo" leftIcon={<MdSupervisedUserCircle />} name="userName"  control={control} />
+                <Input name = "username" placeholder="Nome Completo" leftIcon={<MdSupervisedUserCircle />} control={control} />
                 {errors.email && <span>E-mail é obrigatório</span>}
-                <Input name = "email" placeholder="E-mail" leftIcon={<MdEmail />} name="email"  control={control} />
+                <Input name = "email" placeholder="E-mail" leftIcon={<MdEmail />}  control={control} />
                 {errors.email && <span>E-mail é obrigatório</span>}
-                <Input name = "password" type="password" placeholder="Password" leftIcon={<MdLock />}  name="senha" control={control} />
-                {errors.senha && <span>Senha é obrigatório</span>}
+                <Input name = "password" type="password" placeholder="Password" leftIcon={<MdLock />} control={control} />
+                {errors.password && <span>Senha é obrigatório</span>}
                 <Wrapper>
                   <Button title="Entrar" variant="secondary" type="submit"/>
                 </Wrapper>
@@ -72,7 +73,7 @@ const Register = () => {
         </DivForm>
        </Container>
     </>
-  )
-}
+  );
+};
 
 export  { Register };
